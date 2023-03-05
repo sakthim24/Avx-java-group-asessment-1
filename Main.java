@@ -71,6 +71,40 @@ class Main
        
     }
 
+
+    static void sortbymonth( List<Userdetails> users){
+      
+        //List<Userdetails> filterdusers = new ArrayList<>();
+        HashMap<Integer,List<Userdetails>> filterdusers =new HashMap<Integer,List<Userdetails>>();
+        users.forEach((user) -> {
+         
+         user.products.forEach((product) -> {
+                      
+           if(filterdusers.containsKey(product.monthOfPurchase))
+          filterdusers.get(product.monthOfPurchase).add(user);
+          else{
+          filterdusers.put(product.monthOfPurchase, new ArrayList<>(Arrays.asList(user)));
+          }
+         });
+        });
+      
+        System.out.println("\nsorted list of people who purchased products by month\n" );
+
+
+        TreeMap<Integer, List<Userdetails>> sorted = new TreeMap<>();
+ 
+        
+        sorted.putAll(filterdusers);
+ 
+        // Display the TreeMap which is naturally sorted
+        for (Map.Entry<Integer, List<Userdetails>> entry : sorted.entrySet())
+            System.out.println("Month = " + entry.getKey() +
+                         ", Users = " + entry.getValue());   
+
+       
+       
+    }
+
    
 
     public static void main(String[] args)
@@ -87,6 +121,7 @@ class Main
         EnterDetails(users);
         sortbyage(users);
         sortfemales(users);
+        sortbymonth(users);
        // System.out.println(users);
     }
 }
