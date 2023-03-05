@@ -23,7 +23,7 @@ import java.util.*;
 
     }
     void display(){
-       System.out.println(user_name + " /n" + products);
+       System.out.println(user_name + " : " + products);
     }
  
     public String getuser_name() {
@@ -60,13 +60,15 @@ class Main
        
         int flag=1;
         Scanner sc=new Scanner(System.in);
+        System.out.println("Welcome shopping! \n");
         do {
-        
+          
+            System.out.println("*********************************************************************** \n");
             System.out.println("Enter user_id");
             int current_user=sc.nextInt();
-            System.out.println("Enter product");
+            System.out.println("Enter product [mobile,watch,tv,laptop]");
             String current_product=sc.next();
-            System.out.println("Enter month");
+            System.out.println("Enter month [In number]");
             int current_month=sc.nextInt();
             users.get(current_user-1).purchase(current_user,current_product,current_month);
             System.out.println("product added succesfully! " );
@@ -83,7 +85,7 @@ class Main
         users.forEach((user) -> {
            
          user.products.forEach((product) -> {
-           if( product.monthOfPurchase >= 1 && product.monthOfPurchase <=6){
+           if( product.productName.equals("mobile") && product.monthOfPurchase >= 1 && product.monthOfPurchase <=6){
            if(!(filterdusers.contains(user))) filterdusers.add(user);
            
            }
@@ -91,10 +93,36 @@ class Main
          });
         });
         Collections.sort(filterdusers, Comparator.comparingInt(c -> c.age));
-        System.out.println("Users sorted by age who purchased products between jan and june\n" + filterdusers);
+        System.out.println("\nUsers sorted by age who purchased mobiles between jan and june\n" );
+        filterdusers.forEach((user) -> 
+        {
+        System.out.println(user.user_name + "  " + user.age);
+        });
+       
     }
 
-
+    static void sortfemales( List<Userdetails> users){
+      
+        List<Userdetails> filterdusers = new ArrayList<>();
+        users.forEach((user) -> {
+          if(user.gender.equals("female")){ 
+         user.products.forEach((product) -> {
+           if( product.monthOfPurchase >= 3 && product.monthOfPurchase <=7){
+           if(!(filterdusers.contains(user))) filterdusers.add(user);
+           
+           }
+            
+         });
+        }
+        });
+        
+        System.out.println("\nFemales who purchased watch between March and july\n" );
+        filterdusers.forEach((user) -> 
+        {
+        System.out.println(user.user_name );
+        });
+       
+    }
 
    
 
@@ -111,6 +139,7 @@ class Main
                                             ));
         EnterDetails(users);
         sortbyage(users);
-        System.out.println(users);
+        sortfemales(users);
+       // System.out.println(users);
     }
 }
