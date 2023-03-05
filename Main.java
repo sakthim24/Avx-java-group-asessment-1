@@ -63,7 +63,7 @@ public class Main
         ArrayList<Users >Q1Users = new ArrayList<Users>();
         for(int i=0;i<productData.size();i++){
         //   System.out.println("pd.get(i).getmon = "+productData.get(i).getMonth()+"userid = "+productData.get(i).getUserId());
-           if(productData.get(i).getMonth().equals("jan")){
+           if(Users.monthsToNo.get(productData.get(i).getMonth())<=6){
             //   System.out.println("i am inside the if statement");
                Q1Users.add(userIdToClass.get(productData.get(i).getUserId()));
            }
@@ -74,6 +74,24 @@ public class Main
         ArrayList A1Users = function.apply(Q1Users);
         Collections.sort(A1Users,(Users u1,Users u2)-> u1.getAge()-u2.getAge());
         System.out.println("unprocessed array = " + Q1Users + "\n sorted by age and removed duplicates = " + A1Users);
+        
+        
+        //question2:-
+        ArrayList<Users > Q2Users = new ArrayList<Users >();
+        ArrayList<Users > A2Users = new ArrayList<Users >();
+        
+        for(int i=0;i<productData.size();i++){
+        //   System.out.println("pd.get(i).getmon = "+productData.get(i).getMonth()+"userid = "+productData.get(i).getUserId());
+           int tmpvar = Users.monthsToNo.get(productData.get(i).getMonth());
+           if(tmpvar<=7 && tmpvar>=3 && Character.compare(userIdToClass.get(productData.get(i).getUserId()).getGender(),'f')==0){
+            //   System.out.println("i am inside the if statement");
+                if(Character.compare(productData.get(i).getBill().charAt(0),'1')==0)
+                    Q2Users.add(userIdToClass.get(productData.get(i).getUserId()));
+           }
+           
+        }
+        System.out.println("females who bought watch between march and july = "+ Q2Users+"\n\n");
+        
         
         
         System.out.println("\n\n question3- output = ");
@@ -104,18 +122,22 @@ public class Main
 }
 /*
 input:-
-5
+7
 1 22 krishna m
 2 21 sahi f
 3 19 venket m
 4 52 anand m
 5 47 sreedevi f
-5
+6 20 vijaya f
+7 70 lakshmi f
+7
 1111 5 jan
 0010 2 feb
 0001 3 feb
 1010 4 jan
 0101 5 jan
+1111 7 mar
+1000 6 jul
 output:-
 
 */

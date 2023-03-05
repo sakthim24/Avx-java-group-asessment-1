@@ -12,6 +12,9 @@ class Products{
     public Products(){
         
     }
+    public String getBill(){
+        return this.bill;
+    }
     public int getCount(){
         int cnt=0;
         for(int i=0;i<4;i++)if(Character.compare(bill.charAt(i),'1')==0)cnt++;
